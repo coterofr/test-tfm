@@ -1,1 +1,1 @@
-web: java -XX:+UseContainerSupport -Xmx300m -Xss512k -XX:CICompilerCount=2 -Dfile.encoding=UTF-8 -Dserver.port=$PORT -jar build/libs/*.jar
+web: java $JAVA_OPTS -Dserver.port=$PORT -jar build/libs/*.jar

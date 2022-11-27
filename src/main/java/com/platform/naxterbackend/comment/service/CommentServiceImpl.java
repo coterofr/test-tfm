@@ -32,8 +32,8 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> getComments(String name) {
-        return this.commentRepository.findAllByUserName(name);
+    public List<Comment> getComments(String id) {
+        return this.commentRepository.findAllByPostIdOrderByDateDesc(id);
     }
 
     @Override

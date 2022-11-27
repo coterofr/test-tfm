@@ -33,6 +33,8 @@ public interface UserService {
 
     Page<User> getUsers(Pageable pageable);
 
+    List<User> getSubscribedAuthors(String name);
+
     List<User> searchUsers(String name);
 
     User register(RegisterUser registerUser, String passwordEncoded);

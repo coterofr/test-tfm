@@ -20,6 +20,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -44,6 +45,16 @@ public class UserController {
                                                    sort = "name"
                                                ) Pageable pageable) {
         return ResponseEntity.ok().body(this.userService.getUsers(pageable));
+    }
+
+    @PreAuthorize("hasRole('CONSUMER')")
+    @GetMapping(
+            value = {"/{id}/subscriptions/authors"},
+            produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }
+    )
+    public ResponseEntity<List<User>> getSubscribedAuthors(Model model,
+                                                           @PathVariable(name = "id") String name) {
+        return ResponseEntity.ok().body(this.userService.getSubscribedAuthors(name));
     }
 
     @PreAuthorize("hasRole('ADMIN')")

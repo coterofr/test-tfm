@@ -17,11 +17,13 @@ import com.platform.naxterbackend.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,8 +100,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> getSubscribedAuthors(String name) {
+        User subscriber = this.userRepository.findByNameIgnoreCase(name);
+        List<Subscription> subscriptions = this.subscriptionRepository.findAllBySubscriber(subscriber);
+
+        List<User> producers = new ArrayList<>();
+        for(Subscription subscription : subscriptions) {
+            producers.add(subscription.getProducer());
+        }
+
+        return producers;
+    }
+
+    @Override
     public List<User> searchUsers(String name) {
-        return this.userRepository.findAllByName(name);
+        return this.userRepository.findAllByName(name, Sort.by(Sort.Direction.DESC, "rating"));
     }
 
     @Override
@@ -107,11 +122,11 @@ public class UserServiceImpl implements UserService {
     public User register(RegisterUser registerUser, String passwordEncoded) {
         List<Role> roles = new ArrayList<>();
         roles.add(this.roleRepository.findByType(RoleEnum.GENERIC.getType()));
-        Profile profile = new Profile("", null, 0, 0);
+        Profile profile = new Profile("", null, 0);
 
         Profile profileSaved = this.profileRepository.save(profile);
 
-        User user = new User(registerUser.getName(), registerUser.getEmail(), registerUser.getUserName(), passwordEncoded, Boolean.FALSE, roles, profileSaved, null);
+        User user = new User(registerUser.getName(), registerUser.getEmail(), registerUser.getUserName(), passwordEncoded, Boolean.FALSE, new BigDecimal(0.0), roles, profileSaved, null);
 
         return userRepository.save(user);
     }

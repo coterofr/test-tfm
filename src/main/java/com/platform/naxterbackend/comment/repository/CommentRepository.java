@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface CommentRepository extends MongoRepository<Comment, String> {
 
-    List<Comment> findAllByUserName(String name);
+    List<Comment> findAllByPostIdOrderByDateDesc(String id);
 
     Comment save(Comment comment);
 }

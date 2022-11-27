@@ -62,7 +62,7 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
             .authorizeRequests()
-            .antMatchers("/auth/**", "/home/**").permitAll()
+            .antMatchers("/auth/**", "/posts/home/**").permitAll()
             .anyRequest().authenticated()
             .and()
             .exceptionHandling().authenticationEntryPoint(this.jwtEntryPoint)

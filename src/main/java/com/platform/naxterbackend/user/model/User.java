@@ -8,11 +8,11 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.FieldType;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +40,11 @@ public class User {
     @NotNull
     private Boolean block;
 
+    @Min(0)
+    @Max(10)
+    @Field(targetType = FieldType.DECIMAL128)
+    private BigDecimal rating;
+
     @NotEmpty
     private List<Role> roles;
 
@@ -55,12 +60,21 @@ public class User {
 
     public User() { }
 
-    public User(String name, String email, String userName, String password, Boolean block, List<Role> roles, Profile profile, Merchandising merchandising) {
+    public User(String name,
+                String email,
+                String userName,
+                String password,
+                Boolean block,
+                BigDecimal rating,
+                List<Role> roles,
+                Profile profile,
+                Merchandising merchandising) {
         this.name = name;
         this.email = email;
         this.userName = userName;
         this.password = password;
         this.block = block;
+        this.rating = rating;
         this.roles = roles;
         this.profile = profile;
         this.themes = new ArrayList<>();

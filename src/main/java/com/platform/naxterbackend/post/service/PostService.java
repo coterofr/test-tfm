@@ -11,6 +11,10 @@ public interface PostService {
 
     List<Post> getPosts();
 
+    List<Post> getTopPosts();
+
+    List<Post> getTopPostsByAuthor(String name);
+
     List<Post> searchPosts(String name, String theme, String user);
 
     Post createPost(UserPost userPost);
@@ -18,4 +22,6 @@ public interface PostService {
     Post editPost(String id, UserPost userPost);
 
     String delete(String id);
+
+    Post rate(String id, Integer newRating);
 }

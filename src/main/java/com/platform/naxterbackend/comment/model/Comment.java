@@ -30,6 +30,7 @@ public class Comment {
     private User user;
 
     @NotNull
+    @DBRef
     private Post post;
 
     @NotNull

@@ -8,6 +8,7 @@ import com.platform.naxterbackend.post.service.PostService;
 import com.platform.naxterbackend.post.service.TagService;
 import com.platform.naxterbackend.post.validator.PostValidator;
 import com.platform.naxterbackend.user.model.User;
+import com.platform.naxterbackend.user.validator.UserValidator;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +46,24 @@ public class PostController {
     )
     public ResponseEntity<List<Post>> getPosts(Model model) {
         return ResponseEntity.ok().body(this.postService.getPosts());
+    }
+
+    @GetMapping(
+            value = { "/home/list"},
+            produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }
+    )
+    public ResponseEntity<List<Post>> getTopPosts(Model model) {
+        return ResponseEntity.ok().body(this.postService.getTopPosts());
+    }
+
+    @PreAuthorize("hasRole('CONSUMER')")
+    @GetMapping(
+            value = {"/users/{id}/top/list"},
+            produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }
+    )
+    public ResponseEntity<List<Post>> getTopPostsByAuthor(Model model,
+                                                          @PathVariable(name = "id") String name) {
+        return ResponseEntity.ok().body(this.postService.getTopPostsByAuthor(name));
     }
 
     @PreAuthorize("hasRole('GENERIC')")
@@ -179,6 +198,23 @@ public class PostController {
             jsonObject.put("id", idDeleted);
 
             return ResponseEntity.ok().body(jsonObject.toString());
+        }
+    }
+
+    @PreAuthorize("hasRole('CONSUMER')")
+    @PostMapping(
+        value = {"/{id}/rate"},
+        consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }
+    )
+    public ResponseEntity<?> rate(Model model,
+                                  @PathVariable String id,
+                                  @RequestBody Integer rating) {
+        if(!PostValidator.validId(id)) {
+            return ResponseEntity.badRequest().body("Request with errors");
+        } else {
+            Post postRated = this.postService.rate(id, rating);
+
+            return ResponseEntity.ok().body(postRated);
         }
     }
 }

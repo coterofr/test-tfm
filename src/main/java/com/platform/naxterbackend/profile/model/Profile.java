@@ -27,17 +27,12 @@ public class Profile {
     @Max(100)
     private Integer visits;
 
-    @Min(0)
-    @Max(10)
-    private Integer rating;
-
 
     public Profile() { }
 
-    public Profile(String description, Date dateBirth, Integer visits, Integer rating) {
+    public Profile(String description, Date dateBirth, Integer visits) {
         this.description = description;
         this.dateBirth = dateBirth;
         this.visits = visits;
-        this.rating = rating;
     }
 }

@@ -13,7 +13,7 @@ import java.util.List;
 public class ItemServiceImpl implements ItemService {
 
     @Autowired
-    ItemRepository itemRepository;
+    private ItemRepository itemRepository;
 
     public List<Item> getItems() {
         return this.itemRepository.findAll();

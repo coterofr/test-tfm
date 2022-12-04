@@ -32,15 +32,15 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
     @Autowired
-    RoleRepository roleRepository;
+    private RoleRepository roleRepository;
     @Autowired
-    ProfileRepository profileRepository;
+    private ProfileRepository profileRepository;
     @Autowired
-    SubscriptionRepository subscriptionRepository;
+    private SubscriptionRepository subscriptionRepository;
     @Autowired
-    JwtProvider jwtProvider;
+    private JwtProvider jwtProvider;
 
 
     @Override

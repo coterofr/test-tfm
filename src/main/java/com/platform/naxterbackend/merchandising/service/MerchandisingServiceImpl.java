@@ -13,7 +13,7 @@ import java.util.List;
 public class MerchandisingServiceImpl implements MerchandisingService {
 
     @Autowired
-    MerchandisingRepository merchandisingRepository;
+    private MerchandisingRepository merchandisingRepository;
 
     public List<Merchandising> getMerchandisings() {
         return this.merchandisingRepository.findAll();

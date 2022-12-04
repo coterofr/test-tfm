@@ -17,9 +17,9 @@ import java.util.List;
 public class SubscriptionServiceImpl implements SubscriptionService {
 
     @Autowired
-    SubscriptionRepository subscriptionRepository;
+    private SubscriptionRepository subscriptionRepository;
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
 
     public Subscription getSubscription(String subscriber, String producer) {

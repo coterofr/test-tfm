@@ -16,9 +16,9 @@ import java.util.List;
 public class ThemeServiceImpl implements ThemeService {
 
     @Autowired
-    ThemeRepository themeRepository;
+    private ThemeRepository themeRepository;
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
 
     @Override

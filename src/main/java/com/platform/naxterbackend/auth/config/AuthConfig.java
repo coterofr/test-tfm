@@ -27,13 +27,13 @@ import org.springframework.web.cors.CorsConfigurationSource;
 public class AuthConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    UserDetailsServiceImpl userDetailsService;
+    private UserDetailsServiceImpl userDetailsService;
     @Autowired
-    JwtEntryPoint jwtEntryPoint;
+    private JwtEntryPoint jwtEntryPoint;
     @Autowired
-    CorsConfigurationSource corsConfigurationSource;
+    private CorsConfigurationSource corsConfigurationSource;
     @Autowired
-    RoleHierarchy roleHierarchy;
+    private RoleHierarchy roleHierarchy;
 
 
     @Bean

@@ -19,11 +19,11 @@ import java.util.List;
 public class ProfileServiceImpl implements ProfileService {
 
     @Autowired
-    ProfileRepository profileRepository;
+    private ProfileRepository profileRepository;
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
     @Autowired
-    SubscriptionRepository subscriptionRepository;
+    private SubscriptionRepository subscriptionRepository;
 
 
     public List<Profile> getProfiles() {

@@ -19,11 +19,11 @@ import java.util.List;
 public class CommentServiceImpl implements CommentService {
 
     @Autowired
-    CommentRepository commentRepository;
+    private CommentRepository commentRepository;
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
     @Autowired
-    PostRepository postRepository;
+    private PostRepository postRepository;
 
 
     @Override

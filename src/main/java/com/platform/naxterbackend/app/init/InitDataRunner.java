@@ -1,5 +1,9 @@
 package com.platform.naxterbackend.app.init;
 
+import com.platform.naxterbackend.chat.model.Chat;
+import com.platform.naxterbackend.chat.model.Message;
+import com.platform.naxterbackend.chat.repository.ChatRepository;
+import com.platform.naxterbackend.chat.repository.MessageRepository;
 import com.platform.naxterbackend.comment.model.Comment;
 import com.platform.naxterbackend.comment.repository.CommentRepository;
 import com.platform.naxterbackend.merchandising.model.Item;
@@ -33,6 +37,7 @@ import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -41,27 +46,31 @@ public class InitDataRunner implements ApplicationRunner {
     private final static Logger logger = LoggerFactory.getLogger(InitDataRunner.class);
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
     @Autowired
-    ProfileRepository profileRepository;
+    private ProfileRepository profileRepository;
     @Autowired
-    RoleRepository roleRepository;
+    private RoleRepository roleRepository;
     @Autowired
-    SubscriptionRepository subscriptionRepository;
+    private SubscriptionRepository subscriptionRepository;
     @Autowired
-    ThemeRepository themeRepository;
+    private ThemeRepository themeRepository;
     @Autowired
-    PostRepository postRepository;
+    private PostRepository postRepository;
     @Autowired
-    TagRepository tagRepository;
+    private TagRepository tagRepository;
     @Autowired
-    CommentRepository commentRepository;
+    private CommentRepository commentRepository;
     @Autowired
-    MerchandisingRepository merchandisingRepository;
+    private ChatRepository chatRepository;
     @Autowired
-    ItemRepository itemRepository;
+    private MessageRepository messageRepository;
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private MerchandisingRepository merchandisingRepository;
+    @Autowired
+    private ItemRepository itemRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     @Override
@@ -170,15 +179,15 @@ public class InitDataRunner implements ApplicationRunner {
             User user4 = new User("user_4", "user_4@gmail.com", "User4 Surname", this.passwordEncoder.encode("12345"),
                          Boolean.FALSE, new BigDecimal(0.0), roles4, profile4Saved, null);
             User user5 = new User("user_5", "user_5@gmail.com", "User5 Surname", this.passwordEncoder.encode("12345"),
-                         Boolean.FALSE, new BigDecimal(3.0), roles5, profile5Saved, null);
+                         Boolean.FALSE, new BigDecimal(4.0), roles5, profile5Saved, null);
             User user6 = new User("user_6", "user_6@gmail.com", "User6 Surname", this.passwordEncoder.encode("12345"),
-                         Boolean.FALSE, new BigDecimal(5.5), roles6, profile6Saved, null);
+                         Boolean.FALSE, new BigDecimal(2.5), roles6, profile6Saved, null);
             User user7 = new User("user_7", "user_7@gmail.com", "User7 Surname", this.passwordEncoder.encode("12345"),
                          Boolean.FALSE, new BigDecimal(5.0), roles7, profile7Saved, merchandising1Saved);
             User user8 = new User("user_8", "user_8@gmail.com", "User8 Surname", this.passwordEncoder.encode("12345"),
                          Boolean.FALSE, new BigDecimal(6.0), roles8, profile8Saved, merchandising2Saved);
             User user9 = new User("user_9", "user_9@gmail.com", "User9 Surname", this.passwordEncoder.encode("12345"),
-                         Boolean.FALSE, new BigDecimal(3.0), roles9, profile9Saved, null);
+                         Boolean.FALSE, new BigDecimal(7.0), roles9, profile9Saved, null);
             User user10 = new User("carlos_otero", "carlos_otero@gmail.com", "Carlos Otero Franjo", this.passwordEncoder.encode("12345"),
                           Boolean.FALSE, new BigDecimal(9.5), roles10, profile10Saved, merchandising3Saved);
 
@@ -209,13 +218,13 @@ public class InitDataRunner implements ApplicationRunner {
             this.themeRepository.deleteAll();
 
             Post post1 = new Post("post_1", "Descripción del Post 1 para resaltar el asunto y objetivos más destacables de este.",
-                         BigInteger.ONE, new BigDecimal(1.0), Boolean.FALSE, null, user5Saved, null,
+                         BigInteger.ONE, new BigDecimal(3.0), Boolean.FALSE, null, user5Saved, null,
                          new SimpleDateFormat("yyyy-MM-dd").parse("2021-05-15"), new ArrayList<>());
             Post post2 = new Post("post_2", "Descripción del Post 2 para resaltar el asunto y objetivos más destacables de este.",
                          BigInteger.ONE, new BigDecimal(5.0), Boolean.FALSE, null, user5Saved, null,
                          new SimpleDateFormat("yyyy-MM-dd").parse("2021-06-16"), new ArrayList<>());
             Post post3 = new Post("post_3", "Descripción del Post 3 para resaltar el asunto y objetivos más destacables de este.",
-                         BigInteger.ONE, new BigDecimal(7.0), Boolean.FALSE, null, user6Saved, null,
+                         BigInteger.ONE, new BigDecimal(1.0), Boolean.FALSE, null, user6Saved, null,
                          new SimpleDateFormat("yyyy-MM-dd").parse("2021-07-17"), new ArrayList<>());
             Post post4 = new Post("post_4", "Descripción del Post 4 para resaltar el asunto y objetivos más destacables de este.",
                          BigInteger.ONE, new BigDecimal(4.0), Boolean.FALSE, null, user6Saved, null,
@@ -230,7 +239,7 @@ public class InitDataRunner implements ApplicationRunner {
                          BigInteger.ONE, new BigDecimal(6.0), Boolean.FALSE, null, user8Saved, null,
                          new SimpleDateFormat("yyyy-MM-dd").parse("2022-06-16"), new ArrayList<>());
             Post post8 = new Post("post_8", "Descripción del Post 8 para resaltar el asunto y objetivos más destacables de este.",
-                         BigInteger.ONE, new BigDecimal(3.0), Boolean.FALSE, null, user9Saved, null,
+                         BigInteger.ONE, new BigDecimal(7.0), Boolean.FALSE, null, user9Saved, null,
                          new SimpleDateFormat("yyyy-MM-dd").parse("2022-07-17"), new ArrayList<>());
             Post post9 = new Post("post_9", "Descripción del Post 9 para resaltar el asunto y objetivos más destacables de este.",
                          BigInteger.ONE, new BigDecimal(9.0), Boolean.FALSE, null, user10Saved, null,
@@ -325,25 +334,25 @@ public class InitDataRunner implements ApplicationRunner {
             /* INIT DATA COMMENTS */
 
 
-            Comment comment1 = new Comment("Contenido del primer comentario de la publicación", user5Saved, post1Saved,
+            Comment comment1 = new Comment("Contenido del primer comentario de la publicación", user5Saved, post10Saved,
                                new SimpleDateFormat("yyyy-MM-dd").parse("2022-01-01"));
-            Comment comment2 = new Comment("Contenido del segundo comentario de la publicación", user5Saved, post1Saved,
+            Comment comment2 = new Comment("Contenido del segundo comentario de la publicación", user5Saved, post10Saved,
                                new SimpleDateFormat("yyyy-MM-dd").parse("2022-02-02"));
-            Comment comment3 = new Comment("Contenido del tercer comentario de la publicación", user6Saved, post1Saved,
+            Comment comment3 = new Comment("Contenido del tercer comentario de la publicación", user6Saved, post10Saved,
                                new SimpleDateFormat("yyyy-MM-dd").parse("2022-03-03"));
-            Comment comment4 = new Comment("Contenido del cuarto comentario de la publicación", user6Saved, post1Saved,
+            Comment comment4 = new Comment("Contenido del cuarto comentario de la publicación", user6Saved, post10Saved,
                                new SimpleDateFormat("yyyy-MM-dd").parse("2022-04-04"));
-            Comment comment5 = new Comment("Contenido del quinto comentario de la publicación", user7Saved, post1Saved,
+            Comment comment5 = new Comment("Contenido del quinto comentario de la publicación", user7Saved, post10Saved,
                                new SimpleDateFormat("yyyy-MM-dd").parse("2022-05-05"));
-            Comment comment6 = new Comment("Contenido del sexto comentario de la publicación", user7Saved, post1Saved,
+            Comment comment6 = new Comment("Contenido del sexto comentario de la publicación", user7Saved, post10Saved,
                                new SimpleDateFormat("yyyy-MM-dd").parse("2022-06-06"));
-            Comment comment7 = new Comment("Contenido del séptimo comentario de la publicación", user8Saved, post1Saved,
+            Comment comment7 = new Comment("Contenido del séptimo comentario de la publicación", user8Saved, post10Saved,
                                new SimpleDateFormat("yyyy-MM-dd").parse("2022-07-07"));
-            Comment comment8 = new Comment("Contenido del octavo comentario de la publicación", user9Saved, post1Saved,
+            Comment comment8 = new Comment("Contenido del octavo comentario de la publicación", user9Saved, post10Saved,
                                new SimpleDateFormat("yyyy-MM-dd").parse("2022-08-08"));
-            Comment comment9 = new Comment("Contenido del noveno comentario de la publicación", user10Saved, post1Saved,
+            Comment comment9 = new Comment("Contenido del noveno comentario de la publicación", user10Saved, post10Saved,
                                new SimpleDateFormat("yyyy-MM-dd").parse("2022-09-09"));
-            Comment comment10 = new Comment("Contenido del décimo comentario de la publicación", user10Saved, post1Saved,
+            Comment comment10 = new Comment("Contenido del décimo comentario de la publicación", user10Saved, post10Saved,
                                 new SimpleDateFormat("yyyy-MM-dd").parse("2022-10-10"));
 
             this.commentRepository.save(comment1);
@@ -356,6 +365,101 @@ public class InitDataRunner implements ApplicationRunner {
             this.commentRepository.save(comment8);
             this.commentRepository.save(comment9);
             this.commentRepository.save(comment10);
+
+
+            /* INIT DATA CHATS */
+
+
+            this.messageRepository.deleteAll();
+            this.chatRepository.deleteAll();
+
+            Message message1 = new Message(user10Saved, user9Saved, "Mensaje 1 de Carlos Otero",
+                               new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-01-01 12:00:01"));
+            Message message2 = new Message(user9Saved, user10Saved, "Mensaje 1 del Usuario 9",
+                               new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-01-01 12:01:02"));
+            Message message3 = new Message(user10Saved, user9Saved, "Mensaje 2 de Carlos Otero",
+                               new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-01-01 12:02:03"));
+            Message message4 = new Message(user9Saved, user10Saved, "Mensaje 2 del Usuario 9",
+                               new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-01-01 12:03:04"));
+            Message message5 = new Message(user10Saved, user9Saved, "Mensaje 3 de Carlos Otero",
+                               new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-01-01 12:04:05"));
+            Message message6 = new Message(user9Saved, user10Saved, "Mensaje 3 del Usuario 9",
+                               new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-01-01 12:05:06"));
+            Message message7 = new Message(user10Saved, user9Saved, "Mensaje 4 de Carlos Otero",
+                               new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-01-01 12:06:07"));
+            Message message8 = new Message(user9Saved, user10Saved, "Mensaje 4 del Usuario 9",
+                               new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-01-01 12:07:08"));
+            Message message9 = new Message(user10Saved, user9Saved, "Mensaje 5 de Carlos Otero",
+                               new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-01-01 12:08:09"));
+            Message message10 = new Message(user9Saved, user10Saved, "Mensaje 5 del Usuario 9",
+                                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-01-01 12:09:10"));
+            Message message11 = new Message(user10Saved, user9Saved, "Mensaje 6 de Carlos Otero",
+                                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-01-01 12:10:11"));
+            Message message12 = new Message(user9Saved, user10Saved, "Mensaje 6 del Usuario 9",
+                                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-01-01 12:11:12"));
+            Message message13 = new Message(user10Saved, user9Saved, "Mensaje 7 de Carlos Otero",
+                                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-01-01 12:12:13"));
+            Message message14 = new Message(user9Saved, user10Saved, "Mensaje 7 del Usuario 9",
+                                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-01-01 12:13:14"));
+            Message message15 = new Message(user10Saved, user9Saved, "Mensaje 8 de Carlos Otero",
+                                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-01-01 12:14:15"));
+            Message message16 = new Message(user9Saved, user10Saved, "Mensaje 8 del Usuario 9",
+                                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-01-01 12:15:16"));
+            Message message17 = new Message(user10Saved, user9Saved, "Mensaje 9 de Carlos Otero",
+                                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-01-01 12:16:17"));
+            Message message18 = new Message(user9Saved, user10Saved, "Mensaje 9  del Usuario 9",
+                                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-01-01 12:17:18"));
+            Message message19 = new Message(user10Saved, user9Saved, "Mensaje 10 de Carlos Otero",
+                                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-01-01 13:18:19"));
+            Message message20 = new Message(user9Saved, user10Saved, "Mensaje 10 del Usuario 9",
+                                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-01-01 14:19:20"));
+
+            Message message1Saved = this.messageRepository.save(message1);
+            Message message2Saved = this.messageRepository.save(message2);
+            Message message3Saved = this.messageRepository.save(message3);
+            Message message4Saved = this.messageRepository.save(message4);
+            Message message5Saved = this.messageRepository.save(message5);
+            Message message6Saved = this.messageRepository.save(message6);
+            Message message7Saved = this.messageRepository.save(message7);
+            Message message8Saved = this.messageRepository.save(message8);
+            Message message9Saved = this.messageRepository.save(message9);
+            Message message10Saved = this.messageRepository.save(message10);
+            Message message11Saved = this.messageRepository.save(message11);
+            Message message12Saved = this.messageRepository.save(message12);
+            Message message13Saved = this.messageRepository.save(message13);
+            Message message14Saved = this.messageRepository.save(message14);
+            Message message15Saved = this.messageRepository.save(message15);
+            Message message16Saved = this.messageRepository.save(message16);
+            Message message17Saved = this.messageRepository.save(message17);
+            Message message18Saved = this.messageRepository.save(message18);
+            Message message19Saved = this.messageRepository.save(message19);
+            Message message20Saved = this.messageRepository.save(message20);
+
+            List<Message> messages = new ArrayList<>();
+            messages.add(message1Saved);
+            messages.add(message2Saved);
+            messages.add(message3Saved);
+            messages.add(message4Saved);
+            messages.add(message5Saved);
+            messages.add(message6Saved);
+            messages.add(message7Saved);
+            messages.add(message8Saved);
+            messages.add(message9Saved);
+            messages.add(message10Saved);
+            messages.add(message11Saved);
+            messages.add(message12Saved);
+            messages.add(message13Saved);
+            messages.add(message14Saved);
+            messages.add(message15Saved);
+            messages.add(message16Saved);
+            messages.add(message17Saved);
+            messages.add(message18Saved);
+            messages.add(message19Saved);
+            messages.add(message20Saved);
+
+            Chat chat = new Chat(user10Saved, user9Saved, messages);
+
+            this.chatRepository.save(chat);
 
         } catch (Exception e) {
             logger.error("Error en los registros de las entidades: " + e.getMessage());

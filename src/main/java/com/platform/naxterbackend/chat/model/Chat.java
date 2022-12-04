@@ -7,9 +7,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,24 +19,24 @@ public class Chat {
     @Id
     private String id;
 
-    @NotBlank
-    @Size(min = 1, max = 100)
-    private String message;
+    @NotNull
+    @DBRef
+    private User user1;
 
     @NotNull
     @DBRef
-    private User emmiter;
+    private User user2;
 
-    @NotNull
+    @NotEmpty
     @DBRef
-    private User receiver;
+    private List<Message> messages;
 
 
     public Chat() { }
 
-    public Chat(String message, User emmiter, User receiver) {
-        this.message = message;
-        this.emmiter = emmiter;
-        this.receiver = receiver;
+    public Chat(User user1, User user2, List<Message> messages) {
+        this.user1 = user1;
+        this.user2 = user2;
+        this.messages = messages;
     }
 }

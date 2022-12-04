@@ -32,13 +32,13 @@ public class AuthController {
     private final static Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     @Autowired
-    UserService userService;
+    private UserService userService;
     @Autowired
-    JwtProvider jwtProvider;
+    private JwtProvider jwtProvider;
     @Autowired
-    AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager;
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
 
     @PostMapping(

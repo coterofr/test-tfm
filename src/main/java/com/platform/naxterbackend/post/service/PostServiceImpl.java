@@ -31,13 +31,13 @@ import java.util.stream.Collectors;
 public class PostServiceImpl implements PostService {
 
     @Autowired
-    PostRepository postRepository;
+    private PostRepository postRepository;
     @Autowired
-    TagRepository tagRepository;
+    private TagRepository tagRepository;
     @Autowired
-    ThemeRepository themeRepository;
+    private ThemeRepository themeRepository;
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
 
     @Override
